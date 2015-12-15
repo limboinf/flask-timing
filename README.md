@@ -44,9 +44,9 @@ clone该项目：
 
 ## demo效果：
 
-![](http://beginman.qiniudn.com/flask-corn-demo1.png)
+![](https://raw.githubusercontent.com/BeginMan/flask-timing/master/flask-corn-demo1.png)
 
-![](http://beginman.qiniudn.com/flask-corn-demo2.png)
+![](https://raw.githubusercontent.com/BeginMan/flask-timing/master/flask-corn-demo2.png)
 
 ## 功能：
 
