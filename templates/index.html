@@ -1,0 +1,52 @@
+{% extends "bootstrap/base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}控制面板{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-header">任务列表
+            <a class="btn btn-info" href="{{ url_for('add_task') }}">添加新任务</a></h1>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th>#</th>
+                <th>任务名</th>
+                <th>redis键</th>
+                <th>状态</th>
+                <th>开始时间</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in tasks %}
+                <tr>
+                  <th scope="row">{{loop.index}}</th>
+                    <td>{{ obj.name }}</td>
+                    <td>{{ obj.redis_key }}</td>
+                    <td>{% if obj.expired == 1 %}
+                            <span class="label label-default">已过期</span>&nbsp;
+                            <span class="label label-success">成功</span>
+                        {% else %}
+                            <span class="label label-info">未过期</span>
+                    {% endif %}</td>
+                    <td>{{ obj.start_time }}</td>
+                    <td>{{ obj.create_date }}</td>
+                    <td>
+                        <a class="btn btn-success btn-sm" href="{{ url_for('add_task', tid=obj.id) }}">修改</a>&nbsp;
+                        <a class="btn btn-sm btn-danger" href="{{ url_for('del_task', tid=obj.id)}}">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/task.js', _external=True) }}"></script>
+
+{% endblock %}
+

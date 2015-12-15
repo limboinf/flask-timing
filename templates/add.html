@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-datetimepicker.min.css', _external=True) }}">
+{% endblock %}
+
+{% block title %}添加任务{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-header">添加任务</h1>
+        {{ wtf.quick_form(form) }}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js', _external=True) }}", charset="UTF-8"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.zh-CN.js', _external=True) }}", charset="UTF-8"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/task.js', _external=True) }}"></script>
+
+{% endblock %}
