@@ -84,10 +84,16 @@ def add_task():
         task = Task(form.name.data, str_key, form.ctime.data)
         if tid:
             # update
-            ori_str_key = Task.query.filter(Task.id == tid).first().redis_key
+            tsObj = Task.query.filter(Task.id == tid).first()
+            ori_str_key = tsObj.redis_key
             rd.delete(ori_str_key)
+            tsObj.redis_key = str_key
+            tsObj.name = form.name.data
+            tsObj.start_time = form.ctime.data
+            db.session.commit()
+        else:
+            db.session.add(task)
 
-        db.session.add(task)
         rd.setex(str_key, 1, task.seconds)
         return redirect('/')
     return render_template('add.html', form=form)
@@ -97,7 +103,7 @@ def add_task():
 def del_task(tid):
     task = Task.query.filter(Task.id == tid).first()
     str_key = task.redis_key
-    db.session.remove(task)
+    db.session.delete(task)
     rd.delete(str_key)
     return redirect('/')
 
